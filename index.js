@@ -7,5 +7,29 @@ const askQuestions = async () => {
 
     ]);
 
-    
-}
+    let shape;
+    switch (answers.shape) {
+        case 'Triangle':
+            shape = new Triangle();
+            break;
+        case 'Circle':
+            shape = new Circle();
+            break;
+        case 'Square':
+            shape = new Square();
+            break;
+        default:
+            console.error('Invalid shape selected');
+            process.exit(1);            
+    }
+
+    shape.setColor(answers.shapeColor);
+
+    const svgContent = shape.render();
+
+    fs.writeFileSync('logo.svg', svgContent);
+
+    console.log('Generated logo.svg');
+};
+
+askQuestions();
