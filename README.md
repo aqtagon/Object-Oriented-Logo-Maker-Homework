@@ -26,4 +26,5 @@ The goal of this assignment was to create a logo generator using jest and inquir
 - Preview: ![Object-Oriented-Logo-Maker](<Images/Screenshot 2023-12-28 at 12.07.54 AM.png>)
 - GitHub Link: (https://github.com/aqtagon/Object-Oriented-Logo-Maker-Homework)
 - Demo: https://www.youtube.com/watch?v=KbCEK_Shzh4
+
 Note: Got assistance from Cuitlahuac Hernandez from class and used chatgpt and google for questions.
