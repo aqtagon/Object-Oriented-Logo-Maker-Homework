@@ -1,11 +1,37 @@
-const inquirer = require('inquirer');
-const fs = require('fs');
-const { Triangle, Circle, Square } = require('./lib/shapes');
+import inquirer from 'inquirer';
+import fs from 'fs';
+import { Triangle, Circle, Square } from './lib/shapes.js';
+
+const questions = [
+    {
+        type: 'input',
+        name: 'shapeColor',
+        message: 'Enter the shape color:',
+    },
+    {
+        type: 'list',
+        name: 'shape',
+        message: 'Select a shape:',
+        choices: ['Triangle', 'Circle', 'Square'],
+    },
+    {
+        type: 'input',
+        name: 'text',
+        message: 'Enter a text for the logo (3 letters):',
+        validate: input => {
+            if (input.length === 3) return true;
+            return 'Text must be exactly 3 letters long.';
+        }
+    },
+    {
+        type: 'input',
+        name: 'textColor',
+        message: 'Enter the text color:',
+    }
+];
 
 const askQuestions = async () => {
-    const answers = await inquirer.prompt([
-
-    ]);
+    const answers = await inquirer.prompt(questions);
 
     let shape;
     switch (answers.shape) {
@@ -20,15 +46,18 @@ const askQuestions = async () => {
             break;
         default:
             console.error('Invalid shape selected');
-            process.exit(1);            
+            return;
     }
 
     shape.setColor(answers.shapeColor);
 
-    const svgContent = shape.render();
+    // Incorporating the text and text color into the SVG content
+    const svgContent = `<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+        ${shape.render()}
+        <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="${answers.textColor}">${answers.text}</text>
+    </svg>`;
 
     fs.writeFileSync('logo.svg', svgContent);
-
     console.log('Generated logo.svg');
 };
 
